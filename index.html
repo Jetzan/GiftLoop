@@ -1,0 +1,44 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <script src="https://cdn.jsdelivr.net/npm/@tailwindcss/browser@4"></script>
+    <link rel="stylesheet" href="style.css">
+    <title>GiftLoop</title>
+</head>
+<body class="body h-screen w-full flex flex-col">
+    <header class="header flex items-center justify-between p-2 ">
+        <div class="header_logo w-16  md:w-20 flex items-center">
+            <img class="logo_img" src="imgs/logoNombre.png" alt="">
+        </div>
+        <div class="header_nombre w-32 md:w-44 flex items-center">
+            <img class="nombre_img w-full" src="imgs/nombreLogo.png" alt="">
+        </div>
+        <div class="header_buscar hidden md:flex gap-2">
+            <input id="buscarInput" class="border-2 p-2 rounded-xl border-zinc-200 bg-white text-zinc-800 " type="text">
+            <button id="buscarBoton" class="p-2 rounded-xl text-white cursor-pointer">Buscar</button>
+        </div>
+    </header>
+    <main class="main w-full flex-1 flex flex-col items-center p-2">
+        <section class="main_eventos p-2 flex flex-col items-center">
+            <div class="intercambio">
+                <h3>Primer Intercambio</h3>
+            </div>
+            <button id="nuevoSorteo" class="p-2 text-white rounded-xl">Nuevo Sorteo</button>
+        </section>
+        <section class="panel w-full md:w-2/5 bg-white rounded-xl border-2 border-green-700 p-2 flex flex-col items-center gap-2">
+            <h2 class="panel-title text-3xl">Nuevo Sorteo</h2>
+            <div class="flex flex-col gap-2 w-full">
+              
+                <input id="inputOrganizador" class="border-2 rounded-xl p-2 w-52 self-center" type="text" placeholder="Ingresa tu nombre">
+                <button id="continuarPanel" class="self-end p-2 text-white rounded-xl cursor-pointer">Continuar</button>
+            </div>
+        </section>
+    </main>
+    <footer class="footer p-2 ">
+        <p class="text-white">Todos los derechos reservados</p>
+    </footer>
+    <script src="main.js"></script>
+</body>
+</html>
