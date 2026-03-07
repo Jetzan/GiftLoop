@@ -60,6 +60,8 @@ window.addEventListener("load", () => {
 
     const panelSorteo = document.querySelector(".panel-sorteo");
 
+    const containerRegalos = document.getElementById("containerRegalos");    
+
     const buttonIniciar = document.getElementById("iniciar")
 
     const buttonSalirPanelSorteo = document.getElementById("salirPanelSorteo");
@@ -512,7 +514,7 @@ window.addEventListener("load", () => {
 
 
         buttonsRecomendarFecha.forEach((boton, i) => {
-            if (festividad > -1) {
+            if (festividad) {
                 boton.textContent = festividad.dias[i] + "/" + fechaHoy.getFullYear();
             } else {
                 boton.textContent = new Date(new Date(fechaHoy).setDate(fechaHoy.getDate() + i)).toLocaleDateString("es-MX", {
@@ -547,7 +549,6 @@ window.addEventListener("load", () => {
             year: "numeric"
         });
 
-        console.log(fechaSeleccionada);
     });
 
 
@@ -721,6 +722,7 @@ window.addEventListener("load", () => {
                 const titleSorteo = document.getElementById("titleSorteo");
                 titleSorteo.textContent = evento.nombreSorteo;
                 sorteoIniciado = i;
+                containerRegalos.textContent="";
             });
 
 
@@ -794,7 +796,7 @@ window.addEventListener("load", () => {
 
     function iniciarSorteo() {
 
-        const containerRegalos = document.getElementById("containerRegalos");
+        
         containerRegalos.textContent = "";
 
         sorteoActual = eventosGuardados[sorteoIniciado];
@@ -815,11 +817,17 @@ window.addEventListener("load", () => {
 
         noms.forEach(n => {
             arregloOrdenado.push(Object.entries(resultado).find(r => r[0] === n));
-        })
+        });
+
+        const subtitle = document.createElement("p");
+        subtitle.className="font-bold self-end";
+        subtitle.textContent="le regala a:"
+
+        containerRegalos.appendChild(subtitle);
 
         arregloOrdenado.forEach(asig => {
             const pAsignacion = document.createElement("p");
-            pAsignacion.textContent = asig[0] + "->" + asig[1];
+            pAsignacion.textContent = asig[0] + " → " + asig[1];
             containerRegalos.appendChild(pAsignacion);
         });
 
