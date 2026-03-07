@@ -1,11 +1,30 @@
+@import url('https://fonts.googleapis.com/css2?family=Playpen+Sans+Arabic:wght@100..800&display=swap');
+
+*{
+    font-family: "Playpen Sans Arabic", cursive;
+  font-optical-sizing: auto;
+  font-style: normal;
+}
+
+
+:root{
+    --rojoPrimario: #C94A4A;
+    --verdePrimario: #1f5d42;
+}
+
 .header{
     background-color: #c8bca9;
 }
 
 #buscarBoton{
-    background-color: #1F5D42;
+    background-color: var(--verdePrimario);
     
     
+}
+
+
+#overlay{
+    background-color: rgba(0, 0, 0, 0.5);
 }
 
 
@@ -17,21 +36,52 @@
 }
 
 #nuevoSorteo{
-    background-color: #C94A4A;
+    background-color: var(--rojoPrimario);
 }
 
 .panel-title{
-    color:#1F5D42;
+    color:var(--verdePrimario);
 }
 
-#continuarPanel{
-    background-color: #1f5d42;
+#continuarPanel,#regresar{
+    background-color: var(--verdePrimario);
+}
+
+#nuevoNombre{
+    background-color: var(--rojoPrimario);
+}
+
+#noExclusiones,#siExclusiones{
+    background-color: #e5e5e5;
+}
+
+.item-nombre{
+    cursor:grab;
+}
+.item-nombre:active{
+    cursor: grabbing;
+}
+.nombres-excluidos{
+    cursor: pointer;
 }
 
 
 
+.boton-opcion{
+    background-color: var(--rojoPrimario);
+}
+
+
+.boton-recomendacion{
+    background-color: var(--rojoPrimario);
+}
+
+
+.recomendacion-costo{
+    background-color: var(--rojoPrimario);
+}
 
 
 .footer{
-    background-color: #1f5d42;
+    background-color: var(--verdePrimario);
 }

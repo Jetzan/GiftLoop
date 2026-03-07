@@ -1,44 +1,286 @@
-<!DOCTYPE html>
+<!doctype html>
 <html lang="en">
-<head>
-    <meta charset="UTF-8">
-    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <head>
+    <meta charset="UTF-8" />
+    <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+    <link rel="shortcut icon" href="imgs/logoNombre.png" type="image/x-icon" />
     <script src="https://cdn.jsdelivr.net/npm/@tailwindcss/browser@4"></script>
-    <link rel="stylesheet" href="style.css">
+    <link rel="stylesheet" href="style.css" />
     <title>GiftLoop</title>
-</head>
-<body class="body h-screen w-full flex flex-col">
-    <header class="header flex items-center justify-between p-2 ">
-        <div class="header_logo w-16  md:w-20 flex items-center">
-            <img class="logo_img" src="imgs/logoNombre.png" alt="">
-        </div>
-        <div class="header_nombre w-32 md:w-44 flex items-center">
-            <img class="nombre_img w-full" src="imgs/nombreLogo.png" alt="">
-        </div>
-        <div class="header_buscar hidden md:flex gap-2">
-            <input id="buscarInput" class="border-2 p-2 rounded-xl border-zinc-200 bg-white text-zinc-800 " type="text">
-            <button id="buscarBoton" class="p-2 rounded-xl text-white cursor-pointer">Buscar</button>
-        </div>
+  </head>
+  <body class="body h-auto min-h-screen w-full flex flex-col">
+    <header class="header flex items-center justify-between p-2">
+      <div class="header_logo w-16 md:w-20 flex items-center">
+        <img class="logo_img" src="imgs/logoNombre.png" alt="" />
+      </div>
+      <div class="header_nombre w-32 md:w-44 flex items-center">
+        <img class="nombre_img w-full" src="imgs/nombreLogo.png" alt="" />
+      </div>
+      <div class="header_buscar hidden md:flex gap-2">
+        <input
+          id="buscarInput"
+          class="border-2 p-2 rounded-xl border-zinc-200 bg-white text-zinc-800"
+          type="text"
+          placeholder="Buscar"
+        />
+        <button
+          id="buscarBoton"
+          class="p-2 rounded-xl text-white cursor-pointer"
+        >
+          Buscar
+        </button>
+      </div>
     </header>
     <main class="main w-full flex-1 flex flex-col items-center p-2">
-        <section class="main_eventos p-2 flex flex-col items-center">
-            <div class="intercambio">
-                <h3>Primer Intercambio</h3>
+      <section class="main_eventos p-2 flex flex-col items-center w-full gap-4">
+        <div class="intercambios flex flex-col w-full"></div>
+        <button
+          id="nuevoSorteo"
+          class="p-2 text-white rounded-xl cursor-pointer"
+        >
+          Nuevo Sorteo
+        </button>
+      </section>
+      <div
+        id="overlay"
+        class="hidden fixed inset-0 justify-center items-start pt-10 overflow-y-auto"
+      ></div>
+      <section
+        class="panel fixed overflow-y-auto top-4 max-h-[95vh] z-10 w-full md:w-2/5 bg-white rounded-xl border-2 border-green-700 p-2 hidden flex-col items-center gap-2"
+      >
+        <h2 class="panel-title text-3xl">Nuevo Sorteo</h2>
+        <div class="flex flex-col gap-2 w-full" id="pedirNombre">
+          <input
+            id="inputOrganizador"
+            class="border-2 rounded-xl p-2 w-52 self-center"
+            type="text"
+            placeholder="Ingresa tu nombre"
+          />
+          <div class="self-center">
+            <input
+              type="checkbox"
+              name="incluirOrganizador"
+              id="incluirOrganizador"
+              class="accent-green-700"
+            />
+            <label for="incluirOrganizador">Incluirme en el sorteo</label>
+          </div>
+        </div>
+        <div
+          class="hidden flex-col gap-2 w-full items-center"
+          id="nombresSortear"
+        >
+          <h4 class="text-xl font-bold">Con quien vas a sortear nombres?</h4>
+          <div class="container-nombres w-3/4 flex flex-col gap-3">
+            <div class="nombre-sorteo relative">
+              <input
+                type="text"
+                class="w-full px-2 py-1 border rounded-xl"
+                placeholder="Añadir nombre 1"
+              />
+              <button
+                class="btn-eliminar absolute right-3 top-1 cursor-pointer hidden"
+              >
+                X
+              </button>
             </div>
-            <button id="nuevoSorteo" class="p-2 text-white rounded-xl">Nuevo Sorteo</button>
-        </section>
-        <section class="panel w-full md:w-2/5 bg-white rounded-xl border-2 border-green-700 p-2 flex flex-col items-center gap-2">
-            <h2 class="panel-title text-3xl">Nuevo Sorteo</h2>
-            <div class="flex flex-col gap-2 w-full">
-              
-                <input id="inputOrganizador" class="border-2 rounded-xl p-2 w-52 self-center" type="text" placeholder="Ingresa tu nombre">
-                <button id="continuarPanel" class="self-end p-2 text-white rounded-xl cursor-pointer">Continuar</button>
+            <div class="nombre-sorteo relative">
+              <input
+                type="text"
+                class="w-full px-2 py-1 border rounded-xl"
+                placeholder="Añadir nombre 2"
+              />
+              <button
+                class="btn-eliminar absolute right-3 top-1 cursor-pointer hidden"
+              >
+                X
+              </button>
             </div>
-        </section>
+            <div class="nombre-sorteo relative">
+              <input
+                type="text"
+                class="w-full px-2 py-1 border rounded-xl"
+                placeholder="Añadir nombre 3"
+              />
+              <button
+                class="btn-eliminar absolute right-3 top-1 cursor-pointer hidden"
+              >
+                X
+              </button>
+            </div>
+          </div>
+          <button
+            id="nuevoNombre"
+            class="self-start px-4 py-2 text-xl text-white rounded-xl cursor-pointer"
+          >
+            +
+          </button>
+        </div>
+        <div
+          class="hidden flex-col gap-2 w-full items-center"
+          id="preguntarExcluir"
+        >
+          <h4 class="text-xl font-bold">Quieres excluir algunos sorteos?</h4>
+          <p>
+            Puedes excluir a persoas en el sorteo para que no le asigne cierta
+            persona
+          </p>
+          <button
+            id="noExclusiones"
+            class="p-2 rounded-xl border border-emerald-900 text-emerald-900 cursor-pointer bg-slate-300"
+          >
+            No establecer exclusiones
+          </button>
+          <button
+            id="siExclusiones"
+            class="p-2 rounded-xl border border-emerald-900 text-emerald-900 cursor-pointer bg-slate-300"
+          >
+            Establecer exclusiones
+          </button>
+          <table
+            class="tabla-exclusiones hidden border border-green-950 border-collapse"
+          ></table>
+          <div
+            class="container-botones-exclusiones hidden grid-cols-2 gap-2"
+          ></div>
+        </div>
+
+        <div class="hidden flex-col gap-2 w-full items-center" id="pedirEvento">
+          <h4 class="text-xl font-bold">Que evento celebraras?</h4>
+          <div class="opcionesNombre w-3/4">
+            <button
+              class="boton-opcion text-white rounded-xl p-2 mb-2 cursor-pointer"
+            >
+              Navidad
+            </button>
+            <button
+              class="boton-opcion text-white rounded-xl p-2 mb-2 cursor-pointer"
+            >
+              Dia de Reyes
+            </button>
+            <button
+              class="boton-opcion text-white rounded-xl p-2 mb-2 cursor-pointer"
+            >
+              Dia de San Valentín
+            </button>
+            <button
+              class="boton-opcion text-white rounded-xl p-2 mb-2 cursor-pointer"
+            >
+              Graduación
+            </button>
+            <button
+              class="boton-opcion text-white rounded-xl p-2 mb-2 cursor-pointer"
+            >
+              Intercambio Escolar
+            </button>
+          </div>
+
+          <label for="otroEvento">Otro:</label>
+          <input
+            type="text"
+            id="otroEvento"
+            class="border border-green-950 rounded-xl p-2"
+            placeholder="Ingresa tu evento"
+          />
+        </div>
+        <div class="hidden flex-col gap-2 w-full items-center" id="pedirFecha">
+          <h4 class="text-xl font-bold">Elije una fecha para tu evento:</h4>
+          <div class="recomendar-fechas flex flex-col">
+            <button
+              class="boton-recomendacion text-white rounded-xl p-2 mb-2 cursor-pointer"
+            ></button>
+            <button
+              class="boton-recomendacion text-white rounded-xl p-2 mb-2 cursor-pointer"
+            ></button>
+            <button
+              class="boton-recomendacion text-white rounded-xl p-2 mb-2 cursor-pointer"
+            ></button>
+          </div>
+          <button>Otra:</button>
+          <input type="date" name="" id="inputCalendario" />
+        </div>
+        <div
+          class="hidden flex-col gap-2 w-full items-center"
+          id="cuantoGastar"
+        >
+          <h4 class="text-xl font-bold">
+            Cuánto deberían gastar los participantes?
+          </h4>
+          <div class="recomendaciones-costos">
+            <button
+              class="recomendacion-costo text-white rounded-xl p-2 mb-2 cursor-pointer"
+            >
+              50
+            </button>
+            <button
+              class="recomendacion-costo text-white rounded-xl p-2 mb-2 cursor-pointer"
+            >
+              100
+            </button>
+            <button
+              class="recomendacion-costo text-white rounded-xl p-2 mb-2 cursor-pointer"
+            >
+              250
+            </button>
+            <button
+              class="recomendacion-costo text-white rounded-xl p-2 mb-2 cursor-pointer"
+            >
+              500
+            </button>
+            <button
+              class="recomendacion-costo text-white rounded-xl p-2 mb-2 cursor-pointer"
+            >
+              1000
+            </button>
+          </div>
+          <p
+            class=""
+          >
+            Otro
+          </p>
+          <input
+            type="number"
+            id="inputCosto"
+            class="border border-green-950 rounded-xl p-2"
+            placeholder="Ingresa el costo"
+          />
+        </div>
+        <div class="w-full flex justify-between">
+          <button
+            id="regresar"
+            class="py-2 px-3 text-white rounded-xl cursor-pointer"
+          >
+            &lt;
+          </button>
+          <button
+            id="continuarPanel"
+            class="p-2 text-white rounded-xl cursor-pointer"
+          >
+            Continuar
+          </button>
+        </div>
+      </section>
+      <section class="hidden panel-sorteo fixed top-6 w-1/3">
+        <div
+        class="container-sorteo bg-white p-2 w-full h-full flex flex-col items-center rounded-lg gap-2"
+        >
+        <button id="salirPanelSorteo" class="absolute top-2 right-2 cursor-pointer">X</button>
+          <h2 class="text-2xl font-bold" id="titleSorteo"></h2>
+          <div id="containerRegalos"></div>
+
+          <button
+            class="bg-[var(--rojoPrimario)] rounded-xl text-white p-2 cursor-pointer"
+            id="iniciar"
+          >
+            Iniciar
+          </button>
+        </div>
+      </section>
     </main>
-    <footer class="footer p-2 ">
-        <p class="text-white">Todos los derechos reservados</p>
+    <footer class="footer p-2">
+      <p class="text-white text-center">Todos los derechos reservados</p>
     </footer>
+    <script src="https://cdn.jsdelivr.net/npm/sweetalert2@11"></script>
     <script src="main.js"></script>
-</body>
+  </body>
 </html>
