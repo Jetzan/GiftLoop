@@ -60,7 +60,7 @@ window.addEventListener("load", () => {
 
     const panelSorteo = document.querySelector(".panel-sorteo");
 
-    const containerRegalos = document.getElementById("containerRegalos");    
+    const containerRegalos = document.getElementById("containerRegalos");
 
     const buttonIniciar = document.getElementById("iniciar")
 
@@ -146,6 +146,59 @@ window.addEventListener("load", () => {
     buttonNuevoSorteo.addEventListener("click", () => {
         sectionPanel.style.display = "flex";
         fondoOverlay.style.display = "flex";
+
+        fechaSeleccionada = "";
+        costoSeleccionado = 0;
+        festividadSeleccionada = "";
+
+
+        nuevoEvento = {
+            organizador: "",
+            nombres: [],
+            objsExclusiones: [],
+            nombreSorteo: "",
+            fecha: "",
+            costo: 0,
+        }
+
+        panelActual = 1;
+        paneles.forEach((panel, i) => {
+            panel.style.display = (i + 1 == panelActual) ? "flex" : "none";
+        });
+
+        inputOrganizador.value = "";
+
+        //Limpiar inputs de nombres
+       document.querySelectorAll(".nombre-sorteo input").forEach(input => {
+            input.value = "";
+        });
+        document.querySelectorAll(".dinamico").forEach(div => div.remove());
+        numeroInputNombres = 3;
+        //Limpiar exclusiones
+        const contenedorBotonesExclsuiones = document.querySelector(".container-botones-exclusiones");
+        const tablaExclusiones = document.querySelector(".tabla-exclusiones");
+
+
+        contenedorBotonesExclsuiones.textContent = "";
+        tablaExclusiones.textContent = "";
+
+            //Limpiar recomendaciones nombre evento
+            buttonsRecomendarNombre.forEach(button => {
+                button.style.backgroundColor = "#C94A4A";
+            });
+            inputOtroNombre.value = "";
+
+            //Limpiar recomendaciones fecha
+            buttonsRecomendarFecha.forEach(button => {
+                button.style.backgroundColor = "#C94A4A";
+            });
+            inputFecha.value = "";
+            //Limpiar recomendaciones costo
+            buttonsCostos.forEach(button => {
+                button.style.backgroundColor = "#C94A4A";
+            });
+                inputCosto.value = "";
+
     });
 
     //Click al boton Continuar
@@ -287,7 +340,7 @@ window.addEventListener("load", () => {
         }
         paneles.forEach((panel, i) => {
             panel.style.display = (i + 1 == panelActual) ? "flex" : "none";
-        })
+        });
     });
 
 
@@ -303,7 +356,7 @@ window.addEventListener("load", () => {
         const nuevoButtonNombre = document.createElement("button");
 
 
-        nuevoDivNombre.className = "nombre-sorteo relative";
+        nuevoDivNombre.className = "nombre-sorteo dinamico relative";
 
         nuevoInputNombre.className = "w-full px-2 py-1 border rounded-xl";
         nuevoInputNombre.placeholder = `Añadir nombre ${numeroInputNombres}`;
@@ -722,7 +775,7 @@ window.addEventListener("load", () => {
                 const titleSorteo = document.getElementById("titleSorteo");
                 titleSorteo.textContent = evento.nombreSorteo;
                 sorteoIniciado = i;
-                containerRegalos.textContent="";
+                containerRegalos.textContent = "";
             });
 
 
@@ -796,7 +849,7 @@ window.addEventListener("load", () => {
 
     function iniciarSorteo() {
 
-        
+
         containerRegalos.textContent = "";
 
         sorteoActual = eventosGuardados[sorteoIniciado];
@@ -820,8 +873,8 @@ window.addEventListener("load", () => {
         });
 
         const subtitle = document.createElement("p");
-        subtitle.className="font-bold self-end";
-        subtitle.textContent="le regala a:"
+        subtitle.className = "font-bold self-end";
+        subtitle.textContent = "le regala a:"
 
         containerRegalos.appendChild(subtitle);
 
